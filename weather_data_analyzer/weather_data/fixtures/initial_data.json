@@ -1,0 +1,30 @@
+[
+  {
+    "model": "weather_data.Region",
+    "pk": 1,
+    "fields": {
+      "name": "England"
+    }
+  },
+  {
+    "model": "weather_data.Region",
+    "pk": 2,
+    "fields": {
+      "name": "UK"
+    }
+  },
+  {
+    "model": "weather_data.Region",
+    "pk": 3,
+    "fields": {
+      "name": "Wales"
+    }
+  },
+  {
+    "model": "weather_data.Region",
+    "pk": 4,
+    "fields": {
+      "name": "Scotland"
+    }
+  }
+]
