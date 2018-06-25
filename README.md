@@ -7,11 +7,13 @@ Setup
 ---------
 
 * Clone repo --> `git clone https://github.com/rushjadhav/web_assessment_kisanhub_rushikesh.git`
-* `cd web_assessment_kisanhub_rushikesh.git`
+* `cd web_assessment_kisanhub_rushikesh`
 * Create virtual environment --> `virtualenv venv`
-* Activate Virtual environment --> `source venv/actiavte`
+* Activate Virtual environment --> `source venv/bin/activate`
 * Install requirements --> `pip install -r docs/requirements.txt`
 * `cd weather_data_analyzer` 
+* `python manage.py makemigrations`
+* `python manage.py migrate`
 * Load initial data --> `python manage.py loaddata initial_data.json`
 * Populate database with weather data --> `python manage.py populate_weather_data --all`
 * Run Test cases --> `python manage.py test`
