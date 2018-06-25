@@ -20,7 +20,7 @@ class WeatherDataProcessor(object):
             data = line.split()
             year = int(data[0])
             months = [datetime.datetime.strptime("{0}/{1}".format(month_number, year), "%m/%Y")
-                      for month_number in range(1, 12)]
+                      for month_number in range(1, 13)]
             months_data = map(float, data[1:13])
             data = dict(zip(months, months_data))
             processed_data.update(data)

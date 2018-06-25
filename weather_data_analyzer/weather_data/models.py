@@ -16,6 +16,30 @@ class Region(models.Model):
 
     name = models.CharField(_('Name'), max_length=255, unique=True, null=False, blank=False)
 
+    def _get_average_value_monthly(self, field_name):
+        response = []
+        for month in range(1, 13):
+            data = self.monthly_weather.filter(month=month).values_list(field_name, flat=True)
+            data = sum(data)/len(data)
+            response.append(round(data, 2))
+
+        return response
+
+    def get_average_max_temperature_monthwise(self):
+        return self._get_average_value_monthly('max_temperature')
+
+    def get_average_min_temperature_monthwise(self):
+        return self._get_average_value_monthly('min_temperature')
+
+    def get_average_mean_temperature_monthwise(self):
+        return self._get_average_value_monthly('mean_temperature')
+
+    def get_average_sunshine_monthwise(self):
+        return self._get_average_value_monthly('sunshine')
+
+    def get_average_rainfall_monthwise(self):
+        return self._get_average_value_monthly('rainfall')
+
     def __str__(self):
         return self.name
 
@@ -27,7 +51,6 @@ class MonthlyWeather(models.Model):
     """
     Class Representing a weather information for particular month
     """
-
 
     region = models.ForeignKey(Region, related_name="monthly_weather")
 
@@ -44,7 +67,6 @@ class MonthlyWeather(models.Model):
     year = models.IntegerField(null=False, blank=False)
 
     month = models.IntegerField(null=False, blank=False)
-
 
     def __str__(self):
         return "{0}({1}-{2})".format(self.region, self.month, self.year)
