@@ -4,7 +4,7 @@ Weather Data Analyzer
 Django project to retrieve, store and present UK weather data.
 
 Setup
----------
+-----
 
 * Clone repo --> `git clone https://github.com/rushjadhav/web_assessment_kisanhub_rushikesh.git`
 * `cd web_assessment_kisanhub_rushikesh`

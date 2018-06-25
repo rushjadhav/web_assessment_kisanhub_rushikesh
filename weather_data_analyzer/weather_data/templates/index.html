@@ -1,86 +1,103 @@
+
+
 <!DOCTYPE html>
 {% load staticfiles %}
 <html lang="en">
-    <head>
-        <title>
-            Uk Weather Data
-        </title>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="{% static 'weather_data/css/bootstrap.min.css' %}">
-    </head>
-
-    <body>
-
-        <div class="container">
-          <h2>{{current_region.name}} Monthly Weather Data</h2>
-
-          <select class="btn dropdown-toggle" onchange="if (this.value) window.location.href='/?region_id='+this.value">
-            {% for region in regions%}
-              <option {% if region.id == current_region.id%} selected {% endif %} value="{{region.id}}"> {{region.name}}</option>
-            {% endfor %}
-          </select>
-
-            <div class="row">
-              <div class="col-md-12">
-                <div class="panel panel-default">
-                  <div class="panel-heading">
-                    Monthly average Data
-                  </div>
-                  <div class="panel-body">
-                    <canvas id="averageMonthlyData"></canvas>
-                  </div>
-                </div>
-              </div>
+  <head>
+    <title>
+      Uk Weather Data
+    </title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{% static 'weather_data/css/bootstrap.min.css' %}">
+  </head>
+  <body>
+    <div class="container">
+      <h2>{{current_region.name}} Monthly Weather Data</h2>
+      <select class="btn dropdown-toggle" onchange="if (this.value) window.location.href='/?region_id='+this.value">
+      {% for region in regions%}
+      <option {% if region.id == current_region.id%} selected {% endif %} value="{{region.id}}"> {{region.name}}</option>
+      {% endfor %}
+      </select>
+      <div class="row">
+        <div class="col-md-9">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              Monthly average Data
             </div>
+            <div class="panel-body">
+              <canvas id="averageMonthlyData"></canvas>
+            </div>
+          </div>
         </div>
-
-        <script src= "{% static 'weather_data/js/jquery.min.js' %}"></script>
-        <script src= "{% static 'weather_data/js/bootstrap.min.js' %}"> </script>
-        <script src= "{% static 'weather_data/js/Chart.min.js' %}"></script>
-        <script>
-
-          var averageMonthly = document.getElementById('averageMonthlyData').getContext('2d');
-
-          var averageMaxTemperature = {{average_max_temperature}}
-          var averageMinTemperature = {{average_min_temperature}}
-          var averageMeanTemperature = {{average_mean_temperature}}
-          var averageRainfall = {{average_rainfall}}
-          var averageSunshine = {{average_sunshine}}
-
-          var chart = new Chart(averageMonthly, {
-            type: 'line',
-            data: {
-              labels: ["January", "February", "March", "April", "May", "June", "July",
-                       "August", "September", "Octomber", "November", "December"],
-              datasets: [{
-                  label: "Average Max Temperature",
-                  borderColor: 'rgba(153, 102, 255, 1)',
-                  data: averageMaxTemperature,
-                },
-                {
-                  label: "Average Min Temperature",
-                  borderColor: 'rgba(255,99,132,1)',
-                  data: averageMinTemperature,
-                },
-                {
-                  label: "Average Mean Temperature",
-                  borderColor: 'rgba(54, 162, 235, 1)',
-                  data: averageMeanTemperature,
-                },
-                {
-                  label: "Average Rainfall",
-                  borderColor: 'rgba(255, 206, 86, 1)',
-                  data: averageRainfall,
-                },
-                {
-                  label: "Average Sunshine",
-                  borderColor: 'rgba(75, 192, 192, 1)',
-                  data: averageSunshine,
-                }
-              ]
+        <div class="col-md-3">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              Interesting Facts
+            </div>
+            <div class="panel-body">
+              <ol>
+                <li>
+                  <h6>Scotland & Wales regions have almost identical data</h6>
+                </li>
+                <li>
+                  <h6>Among the 4 regions england has less rainfall</h6>
+                </li>
+                <li>
+                  <h6>Scotland is the coolest region in given four regions</h6>
+                </li>
+              </ol>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src= "{% static 'weather_data/js/jquery.min.js' %}"></script>
+    <script src= "{% static 'weather_data/js/bootstrap.min.js' %}"> </script>
+    <script src= "{% static 'weather_data/js/Chart.min.js' %}"></script>
+    <script>
+      var averageMonthly = document.getElementById('averageMonthlyData').getContext('2d');
+      
+      var averageMaxTemperature = {{average_max_temperature}}
+      var averageMinTemperature = {{average_min_temperature}}
+      var averageMeanTemperature = {{average_mean_temperature}}
+      var averageRainfall = {{average_rainfall}}
+      var averageSunshine = {{average_sunshine}}
+      
+      var chart = new Chart(averageMonthly, {
+        type: 'line',
+        data: {
+          labels: ["January", "February", "March", "April", "May", "June", "July",
+                   "August", "September", "Octomber", "November", "December"],
+          datasets: [{
+              label: "Average Max Temperature",
+              borderColor: 'rgba(153, 102, 255, 1)',
+              data: averageMaxTemperature,
             },
-          });
-        </script>
-    </body>
+            {
+              label: "Average Min Temperature",
+              borderColor: 'rgba(255,99,132,1)',
+              data: averageMinTemperature,
+            },
+            {
+              label: "Average Mean Temperature",
+              borderColor: 'rgba(54, 162, 235, 1)',
+              data: averageMeanTemperature,
+            },
+            {
+              label: "Average Rainfall",
+              borderColor: 'rgba(255, 206, 86, 1)',
+              data: averageRainfall,
+            },
+            {
+              label: "Average Sunshine",
+              borderColor: 'rgba(75, 192, 192, 1)',
+              data: averageSunshine,
+            }
+          ]
+        },
+      });
+    </script>
+  </body>
 </html>
+
