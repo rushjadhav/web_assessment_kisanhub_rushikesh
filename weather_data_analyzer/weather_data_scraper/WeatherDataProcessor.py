@@ -4,6 +4,8 @@ Data processing layer converts api data to required format
 
 import datetime
 
+from weather_data.utils import get_date_from_year_month
+
 class WeatherDataProcessor(object):
     """
     Class Responsible for parsing data
@@ -19,8 +21,7 @@ class WeatherDataProcessor(object):
         for line in data:
             data = line.split()
             year = int(data[0])
-            months = [datetime.datetime.strptime("{0}/{1}".format(month_number, year), "%m/%Y")
-                      for month_number in range(1, 13)]
+            months = [get_date_from_year_month(month, year) for month in range(1, 13)]
             months_data = map(float, data[1:13])
             data = dict(zip(months, months_data))
             processed_data.update(data)

@@ -1,0 +1,35 @@
+<h2>{[{selectedRegion.name}]} Monthly Weather Data</h2>
+
+<select class="btn dropdown-toggle" ng-model="selectedRegion" ng-options="region.name for region in regions" ng-change="drawGraph()">
+</select>
+<a ng-href="#region/{[{selectedRegion.id}]}">Detail Data </a>
+
+<div class="row">
+
+	<div class="col-md-9">
+	  <div class="panel panel-default">
+	    <div class="panel-heading">
+	      Monthly average Data
+	    </div>
+	    <div class="panel-body">
+	      <canvas id="averageMonthlyData"></canvas>
+	    </div>
+	  </div>
+	</div>
+
+	<div class="col-md-3">
+	  <div class="panel panel-default">
+	    <div class="panel-heading">
+	      Interesting Facts
+	    </div>
+	    <div class="panel-body">
+	      <ol>
+	        <li ng-repeat="interestingFact in interestingFacts">
+	          <h6>{[{interestingFact}]}</h6>
+	        </li>
+	      </ol>
+	    </div>
+	  </div>
+	</div>
+
+</div>

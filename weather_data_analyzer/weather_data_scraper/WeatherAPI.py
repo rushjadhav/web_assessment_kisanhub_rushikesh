@@ -37,30 +37,19 @@ class WeatherAPI(object):
         else:
             raise RequestFailedException(response.status_code, response.text)
 
+    def _get_relative_url(self, parameter_name, region_name):
+
+        return "{0}/date/{1}.txt".format(parameter_name, region_name)
+
     def get_data(self, region_name='UK'):
         """
         region_name: String, e.g. UK, England
         """
 
-        #Max Temperature
-        max_temperatures = self._make_request("Tmax/date/{0}.txt".format(region_name))
-
-        #Min Temperature
-        min_temperatures = self._make_request("Tmin/date/{0}.txt".format(region_name))
-
-        #Mean Temperature
-        mean_temperatures = self._make_request("Tmean/date/{0}.txt".format(region_name))
-
-        #Rainfall
-        rainfall = self._make_request("Rainfall/date/{0}.txt".format(region_name))
-
-        #Sunshine
-        sunshine = self._make_request("Sunshine/date/{0}.txt".format(region_name))
-
         return {
-            'max_temperatures': max_temperatures,
-            'min_temperatures': min_temperatures,
-            'mean_temperatures': mean_temperatures,
-            'rainfall': rainfall,
-            'sunshine': sunshine
+            'max_temperatures': self._make_request(self._get_relative_url("Tmax", region_name)),
+            'min_temperatures': self._make_request(self._get_relative_url("Tmin", region_name)),
+            'mean_temperatures': self._make_request(self._get_relative_url("Tmean", region_name)),
+            'rainfall': self._make_request(self._get_relative_url("Rainfall", region_name)),
+            'sunshine': self._make_request(self._get_relative_url("Sunshine", region_name))
         }
